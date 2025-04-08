@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.example.constant.ConstantName;
-import com.example.pojo.entity.User;
+import com.example.pojo.entity.user.User;
 import com.example.utils.FileUtil;
 
 /**

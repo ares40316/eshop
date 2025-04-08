@@ -1,4 +1,4 @@
-<%@ page import="com.example.pojo.entity.User" contentType="text/html;charset=utf-8"%>
+<%@ page import="com.example.pojo.entity.user.User" contentType="text/html;charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 

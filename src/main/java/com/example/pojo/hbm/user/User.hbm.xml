@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <!-- 定義 User 類別對應的資料表，這裡是 'user' 資料表 -->
-    <class name="com.example.pojo.entity.User" table="user">
+    <class name="com.example.pojo.entity.user.User" table="user">
         <!-- 註解：用來描述該資料表的功能 -->
         <comment>使用者資料表</comment>
         

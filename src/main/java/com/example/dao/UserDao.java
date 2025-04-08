@@ -1,6 +1,6 @@
 package com.example.dao;
 
-import com.example.pojo.entity.User;
+import com.example.pojo.entity.user.User;
 
 public interface UserDao {
     

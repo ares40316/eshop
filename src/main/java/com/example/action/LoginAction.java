@@ -3,7 +3,7 @@ package com.example.action;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.constant.ConstantName;
-import com.example.pojo.entity.User;
+import com.example.pojo.entity.user.User;
 import com.example.service.UserService;
 
 /**

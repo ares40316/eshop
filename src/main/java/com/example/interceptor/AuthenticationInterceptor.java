@@ -3,7 +3,7 @@ package com.example.interceptor;
 import java.util.Map;
 
 import com.example.constant.ConstantName;
-import com.example.pojo.entity.User;
+import com.example.pojo.entity.user.User;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;

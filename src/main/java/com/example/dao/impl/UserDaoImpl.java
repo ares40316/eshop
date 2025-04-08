@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.example.dao.UserDao;
-import com.example.pojo.entity.User;
+import com.example.pojo.entity.user.User;
 
 /**
  * UserDao 實作類別，負責實作 UserDao 介面中的方法。

@@ -4,9 +4,9 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.pojo.entity.User;
 import com.example.service.UserService;
 import com.example.constant.ConstantName;
+import com.example.pojo.entity.user.User;
 
 public class RegisterAction extends BaseAction {
 

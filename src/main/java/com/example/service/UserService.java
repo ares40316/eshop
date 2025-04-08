@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.pojo.entity.User;
+import com.example.pojo.entity.user.User;
 
 /**
  * UserService 介面，負責定義有關使用者的服務方法

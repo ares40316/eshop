@@ -1,4 +1,4 @@
-package com.example.pojo.entity;
+package com.example.pojo.entity.user;
 
 import java.util.Date;
 
