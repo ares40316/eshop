@@ -112,19 +112,31 @@ input[type="text"]:focus, input[type="password"]:focus {
 </head>
 <body>
 	<div class="login-box">
-    <h2><c:out value="${title}" /></h2>
-    
-    <s:form id="loginForm" action="%{#request.contextPath}/user/doLogin" method="post" onsubmit="return validateAndSubmit();">
-        <s:textfield name="loginId" key="帳號" label="帳號" required="true" cssClass="input" />
-        <s:password name="password" key="密碼" label="密碼" required="true" cssClass="input" />
-        <s:submit value="登入" cssClass="btn"/>
-    </s:form>
+		<h2>
+			<c:out value="${title}" />
+		</h2>
 
-    <c:if test="${not empty msg}">
-        <div class="error">${msg}</div>
-    </c:if>
+		<s:form id="loginForm" action="%{#request.contextPath}/user/doLogin"
+			method="post" onsubmit="return validateAndSubmit();">
+			<s:textfield name="loginId" key="帳號" label="帳號" required="true"
+				cssClass="input" />
+			<s:password name="password" key="密碼" label="密碼" required="true"
+				cssClass="input" />
+			<s:submit value="登入" cssClass="btn" />
+		</s:form>
 
-    <s:actionerror />
-</div>
+		<div style="text-align: center; margin-top: 10px;">
+			<s:url var="registerUrl" action="register" namespace="/user" />
+			<a href="${registerUrl}">還沒有帳號？立即註冊</a>
+		</div>
+
+		<c:if test="${not empty msg}">
+			<div class="error">${msg}</div>
+		</c:if>
+
+		
+
+	</div>
+
 </body>
 </html>

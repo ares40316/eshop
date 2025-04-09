@@ -65,44 +65,11 @@
 │           │   └── login.jsp
 │           └── WEB-INF
 │               ├── views
-│               │   └── login.jsp
+│               │   ├── login.jsp
+│               │   └──  register.jsp
 │               └── web.xml
 └── target
     ├── classes
-    │   ├── com
-    │   │   └── example
-    │   │       ├── action
-    │   │       │   ├── BaseAction.class
-    │   │       │   ├── HomeAction.class
-    │   │       │   ├── LoginAction.class
-    │   │       │   └── RegisterAction.class
-    │   │       ├── constant
-    │   │       │   └── ConstantName.class
-    │   │       ├── dao
-    │   │       │   ├── impl
-    │   │       │   │   └── UserDaoImpl.class
-    │   │       │   └── UserDao.class
-    │   │       ├── interceptor
-    │   │       │   └── AuthenticationInterceptor.class
-    │   │       ├── pojo
-    │   │       │   ├── entity
-    │   │       │   │   ├── admin
-    │   │       │   │   │   └── Admin.class
-    │   │       │   │   └── user
-    │   │       │   │       └── User.class
-    │   │       │   └── hbm
-    │   │       │       ├── admin
-    │   │       │       │   └── Admin.hbm.xml
-    │   │       │       └── user
-    │   │       │           └── User.hbm.xml
-    │   │       ├── service
-    │   │       │   ├── impl
-    │   │       │   │   └── UserServiceImpl.class
-    │   │       │   └── UserService.class
-    │   │       └── utils
-    │   │           ├── DateUtil.class
-    │   │           ├── FileUtil.class
-    │   │           └── IdGenerateUtil.class
     │   ├── logback.xml
     │   ├── spring
     │   │   ├── applicationContext.xml
@@ -115,15 +82,14 @@
     │   │   ├── struts-login.xml
     │   │   └── struts-register.xml
     │   └── struts.xml
-    ├── m2e-wtp
-    │   └── web-resources
-    │       └── META-INF
-    │           ├── MANIFEST.MF
-    │           └── maven
-    │               └── com.example
-    │                   └── eshop
-    │                       ├── pom.properties
-    │                       └── pom.xml
-    └── test-classes
+    └── m2e-wtp
+        └── web-resources
+            └── META-INF
+                ├── MANIFEST.MF
+                └── maven
+                    └── com.example
+                        └── eshop
+                            ├── pom.properties
+                            └── pom.xml
 
-60 directories, 66 files
+42 directories, 50 files
