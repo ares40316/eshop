@@ -1,0 +1,129 @@
+.
+├── pom.xml
+├── project_tree.txt
+├── README.md
+├── src
+│   └── main
+│       ├── java
+│       │   └── com
+│       │       └── example
+│       │           ├── action
+│       │           │   ├── BaseAction.java
+│       │           │   ├── HomeAction.java
+│       │           │   ├── LoginAction.java
+│       │           │   └── RegisterAction.java
+│       │           ├── constant
+│       │           │   └── ConstantName.java
+│       │           ├── dao
+│       │           │   ├── impl
+│       │           │   │   └── UserDaoImpl.java
+│       │           │   └── UserDao.java
+│       │           ├── interceptor
+│       │           │   └── AuthenticationInterceptor.java
+│       │           ├── pojo
+│       │           │   ├── entity
+│       │           │   │   ├── admin
+│       │           │   │   │   └── Admin.java
+│       │           │   │   └── user
+│       │           │   │       └── User.java
+│       │           │   └── hbm
+│       │           │       ├── admin
+│       │           │       │   └── Admin.hbm.xml
+│       │           │       └── user
+│       │           │           └── User.hbm.xml
+│       │           ├── service
+│       │           │   ├── impl
+│       │           │   │   └── UserServiceImpl.java
+│       │           │   └── UserService.java
+│       │           └── utils
+│       │               ├── DateUtil.java
+│       │               ├── FileUtil.java
+│       │               └── IdGenerateUtil.java
+│       ├── resources
+│       │   ├── logback.xml
+│       │   ├── spring
+│       │   │   ├── applicationContext.xml
+│       │   │   ├── jdbc.properties
+│       │   │   └── spring-beans.xml
+│       │   ├── sqlscript
+│       │   │   └── user.sql
+│       │   ├── struts
+│       │   │   ├── struts-home.xml
+│       │   │   ├── struts-login.xml
+│       │   │   └── struts-register.xml
+│       │   └── struts.xml
+│       └── webapp
+│           ├── admin
+│           │   └── login.jsp
+│           ├── error.jsp
+│           ├── home.jsp
+│           ├── META-INF
+│           │   └── MANIFEST.MF
+│           ├── public
+│           │   └── jquery-3.4.1.min.js
+│           ├── user
+│           │   └── login.jsp
+│           └── WEB-INF
+│               ├── views
+│               │   └── login.jsp
+│               └── web.xml
+└── target
+    ├── classes
+    │   ├── com
+    │   │   └── example
+    │   │       ├── action
+    │   │       │   ├── BaseAction.class
+    │   │       │   ├── HomeAction.class
+    │   │       │   ├── LoginAction.class
+    │   │       │   └── RegisterAction.class
+    │   │       ├── constant
+    │   │       │   └── ConstantName.class
+    │   │       ├── dao
+    │   │       │   ├── impl
+    │   │       │   │   └── UserDaoImpl.class
+    │   │       │   └── UserDao.class
+    │   │       ├── interceptor
+    │   │       │   └── AuthenticationInterceptor.class
+    │   │       ├── pojo
+    │   │       │   ├── entity
+    │   │       │   │   ├── admin
+    │   │       │   │   │   └── Admin.class
+    │   │       │   │   └── user
+    │   │       │   │       └── User.class
+    │   │       │   └── hbm
+    │   │       │       ├── admin
+    │   │       │       │   └── Admin.hbm.xml
+    │   │       │       └── user
+    │   │       │           └── User.hbm.xml
+    │   │       ├── service
+    │   │       │   ├── impl
+    │   │       │   │   └── UserServiceImpl.class
+    │   │       │   └── UserService.class
+    │   │       └── utils
+    │   │           ├── DateUtil.class
+    │   │           ├── FileUtil.class
+    │   │           └── IdGenerateUtil.class
+    │   ├── logback.xml
+    │   ├── spring
+    │   │   ├── applicationContext.xml
+    │   │   ├── jdbc.properties
+    │   │   └── spring-beans.xml
+    │   ├── sqlscript
+    │   │   └── user.sql
+    │   ├── struts
+    │   │   ├── struts-home.xml
+    │   │   ├── struts-login.xml
+    │   │   └── struts-register.xml
+    │   └── struts.xml
+    ├── m2e-wtp
+    │   └── web-resources
+    │       └── META-INF
+    │           ├── MANIFEST.MF
+    │           └── maven
+    │               └── com.example
+    │                   └── eshop
+    │                       ├── pom.properties
+    │                       └── pom.xml
+    └── test-classes
+
+60 directories, 66 files

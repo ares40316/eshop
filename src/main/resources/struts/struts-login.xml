@@ -3,7 +3,7 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
     "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-    <package name="login" extends="default" namespace="/login">
+    <package name="login" extends="default" namespace="/user">
         <interceptors>
             <!-- 
                 定義當前 package（封裝作用域）的攔截器堆疊 
@@ -28,7 +28,7 @@
             - Action 名稱為 "login"，對應的處理類別為 com.example.action.LoginAction
             - 方法 "doLogin" 負責處理登入邏輯
         -->
-        <action name="login" class="com.example.action.LoginAction" method="doLogin">
+        <action name="doLogin" class="com.example.action.LoginAction" method="doLogin">
             <!-- 
                 若在這裡手動加入 interceptor-ref，則會覆蓋 default-interceptor-ref，
                 這樣其他攔截器（如 fileUpload）將無法生效，需謹慎使用。
@@ -38,7 +38,7 @@
             <!-- 
                 當驗證未通過（輸入錯誤）時，重新導向至登入頁面 
             -->
-            <result name="input" type="redirect">/login.jsp</result>
+            <result name="input">/WEB-INF/views/login.jsp</result>
 
             <!-- 
                 當登入成功時，導向至首頁 
