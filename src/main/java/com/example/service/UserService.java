@@ -22,4 +22,8 @@ public interface UserService {
      * @param user  要新增的使用者資料
      */
     public void addUser(User user);
+    
+    public User findUserByLoginId(String loginId);
+    
+    public User findUserByTel(String tel);
 }

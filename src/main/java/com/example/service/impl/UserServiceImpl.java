@@ -42,4 +42,16 @@ public class UserServiceImpl implements UserService {
         userDao.addUser(user);
     }
 
+	@Override
+	public User findUserByLoginId(String loginId) {
+		// TODO Auto-generated method stub
+		return userDao.findUserByLoginId(loginId);
+	
+	}
+	
+	@Override
+	public User findUserByTel(String tel) {
+	    return userDao.findUserByTel(tel);
+	}
+
 }

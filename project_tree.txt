@@ -66,10 +66,45 @@
 │           └── WEB-INF
 │               ├── views
 │               │   ├── login.jsp
-│               │   └──  register.jsp
+│               │   ├── register.jsp
+│               │   └── test.jsp
 │               └── web.xml
 └── target
     ├── classes
+    │   ├── com
+    │   │   └── example
+    │   │       ├── action
+    │   │       │   ├── BaseAction.class
+    │   │       │   ├── HomeAction.class
+    │   │       │   ├── LoginAction.class
+    │   │       │   └── RegisterAction.class
+    │   │       ├── constant
+    │   │       │   └── ConstantName.class
+    │   │       ├── dao
+    │   │       │   ├── impl
+    │   │       │   │   └── UserDaoImpl.class
+    │   │       │   └── UserDao.class
+    │   │       ├── interceptor
+    │   │       │   └── AuthenticationInterceptor.class
+    │   │       ├── pojo
+    │   │       │   ├── entity
+    │   │       │   │   ├── admin
+    │   │       │   │   │   └── Admin.class
+    │   │       │   │   └── user
+    │   │       │   │       └── User.class
+    │   │       │   └── hbm
+    │   │       │       ├── admin
+    │   │       │       │   └── Admin.hbm.xml
+    │   │       │       └── user
+    │   │       │           └── User.hbm.xml
+    │   │       ├── service
+    │   │       │   ├── impl
+    │   │       │   │   └── UserServiceImpl.class
+    │   │       │   └── UserService.class
+    │   │       └── utils
+    │   │           ├── DateUtil.class
+    │   │           ├── FileUtil.class
+    │   │           └── IdGenerateUtil.class
     │   ├── logback.xml
     │   ├── spring
     │   │   ├── applicationContext.xml
@@ -92,4 +127,4 @@
                             ├── pom.properties
                             └── pom.xml
 
-42 directories, 50 files
+59 directories, 68 files

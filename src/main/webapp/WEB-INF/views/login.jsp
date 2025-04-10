@@ -1,6 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<% 
+    String userMsg = (String) session.getAttribute("session_user_msg");
+    if (userMsg != null) {
+%>
+      <script type="text/javascript">
+          alert("<%= userMsg %>");
+      </script>
+<%
+      session.removeAttribute("session_user_msg");
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -83,6 +95,18 @@ input[type="text"]:focus, input[type="password"]:focus {
 	font-size: 14px;
 }
 
+/* 成功訊息顯示區塊 */
+.success {
+	color: #15803d;
+	background-color: #d1fae5;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #10b981;
+	border-radius: 8px;
+	text-align: center;
+	font-size: 14px;
+}
+
 @media ( max-width : 480px) {
 	.login-box {
 		padding: 24px;
@@ -116,6 +140,12 @@ input[type="text"]:focus, input[type="password"]:focus {
 			<c:out value="${title}" />
 		</h2>
 
+		<!-- 顯示註冊成功訊息（從 session 帶入） -->
+		<c:if test="${not empty sessionScope.SESSION_USER_MSG}">
+			<div class="success">${sessionScope.SESSION_USER_MSG}</div>
+		</c:if>
+
+		<!-- 登入表單 -->
 		<s:form id="loginForm" action="%{#request.contextPath}/user/doLogin"
 			method="post" onsubmit="return validateAndSubmit();">
 			<s:textfield name="loginId" key="帳號" label="帳號" required="true"
@@ -133,9 +163,6 @@ input[type="text"]:focus, input[type="password"]:focus {
 		<c:if test="${not empty msg}">
 			<div class="error">${msg}</div>
 		</c:if>
-
-		
-
 	</div>
 
 </body>

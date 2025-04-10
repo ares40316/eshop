@@ -44,6 +44,24 @@ public class UserDaoImpl implements UserDao {
         // 使用 Hibernate 保存 User 物件
         getSession().save(user);
     }
+    
+    @Override
+    public User findUserByLoginId(String loginId) {
+        String hql = "from User where loginId = :loginId";
+        Query<User> query = getSession().createQuery(hql, User.class);
+        query.setParameter("loginId", loginId);
+        List<User> userList = query.list();
+        return userList.isEmpty() ? null : userList.get(0);
+    }
+    
+    @Override
+    public User findUserByTel(String tel) {
+        String hql = "from User where tel = :tel";
+        Query<User> query = getSession().createQuery(hql, User.class);
+        query.setParameter("tel", tel);
+        List<User> userList = query.list();
+        return userList.isEmpty() ? null : userList.get(0);
+    }
 
     /**
      * 使用 Hibernate 查詢資料庫，根據使用者的帳號和密碼來查詢使用者資料。

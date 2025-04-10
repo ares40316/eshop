@@ -19,4 +19,19 @@ public interface UserDao {
      * @return 無回傳值，成功則資料會被儲存至資料庫
      */
     public void addUser(User user);
+    
+    /**
+     * 根據 loginId 查詢使用者資料
+     * 
+     * @param loginId 使用者登入帳號
+     * @return 如果找到，返回對應的 User 物件；否則返回 null
+     */
+    public User findUserByLoginId(String loginId);
+    
+    /**
+     * 根據電話查詢使用者資料。
+     * @param tel 使用者的電話
+     * @return 如果找到該電話對應的使用者，返回 User 物件；否則返回 null
+     */
+    public User findUserByTel(String tel);
 }
