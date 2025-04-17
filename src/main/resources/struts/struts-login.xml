@@ -41,9 +41,13 @@
             <result name="input">/WEB-INF/views/login.jsp</result>
 
             <!-- 
-                當登入成功時，導向至首頁 
+                當登入成功時，導向至商品頁面Action而不是jsp
+                避免導致被攔截進而變成靜態畫面
             -->
-            <result name="success" type="redirect">/home/index</result>
+            <result name="success" type="redirectAction">
+                <param name="namespace">/product</param>
+                <param name="actionName">search </param>
+            </result>
         </action>
     </package>
 </struts>

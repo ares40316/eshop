@@ -3,87 +3,117 @@
 ├── project_tree.txt
 ├── README.md
 ├── src
-│   └── main
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── example
+│   │   │           ├── action
+│   │   │           │   ├── AdminLoginAction.java
+│   │   │           │   ├── BaseAction.java
+│   │   │           │   ├── HomeAction.java
+│   │   │           │   ├── LoginAction.java
+│   │   │           │   ├── ProductAction.java
+│   │   │           │   └── RegisterAction.java
+│   │   │           ├── constant
+│   │   │           │   └── ConstantName.java
+│   │   │           ├── dao
+│   │   │           │   ├── CategoryDao.java
+│   │   │           │   ├── impl
+│   │   │           │   │   ├── CategoryDaoImpl.java
+│   │   │           │   │   ├── ProductDaoImpl.java
+│   │   │           │   │   └── UserDaoImpl.java
+│   │   │           │   ├── ProductDao.java
+│   │   │           │   └── UserDao.java
+│   │   │           ├── dto
+│   │   │           │   └── ProductPageResult.java
+│   │   │           ├── interceptor
+│   │   │           │   └── AuthenticationInterceptor.java
+│   │   │           ├── pojo
+│   │   │           │   ├── entity
+│   │   │           │   │   ├── admin
+│   │   │           │   │   │   └── Admin.java
+│   │   │           │   │   └── user
+│   │   │           │   │       ├── Category.java
+│   │   │           │   │       ├── Product.java
+│   │   │           │   │       └── User.java
+│   │   │           │   └── hbm
+│   │   │           │       ├── admin
+│   │   │           │       │   └── Admin.hbm.xml
+│   │   │           │       └── user
+│   │   │           │           ├── Category.hbm.xml
+│   │   │           │           ├── Product.hbm.xml
+│   │   │           │           └── User.hbm.xml
+│   │   │           ├── service
+│   │   │           │   ├── CategoryService.java
+│   │   │           │   ├── impl
+│   │   │           │   │   ├── CategoryServiceImpl.java
+│   │   │           │   │   ├── ProductServiceImpl.java
+│   │   │           │   │   └── UserServiceImpl.java
+│   │   │           │   ├── ProductService.java
+│   │   │           │   └── UserService.java
+│   │   │           └── utils
+│   │   │               ├── DateUtil.java
+│   │   │               ├── FileUtil.java
+│   │   │               └── IdGenerateUtil.java
+│   │   ├── resources
+│   │   │   ├── logback.xml
+│   │   │   ├── spring
+│   │   │   │   ├── applicationContext.xml
+│   │   │   │   ├── jdbc.properties
+│   │   │   │   └── spring-beans.xml
+│   │   │   ├── sqlscript
+│   │   │   │   └── user.sql
+│   │   │   ├── struts
+│   │   │   │   ├── struts-adminlogin.xml
+│   │   │   │   ├── struts-home.xml
+│   │   │   │   ├── struts-login.xml
+│   │   │   │   ├── struts-product.xml
+│   │   │   │   └── struts-register.xml
+│   │   │   └── struts.xml
+│   │   └── webapp
+│   │       ├── admin
+│   │       │   └── login.jsp
+│   │       ├── error.jsp
+│   │       ├── home.jsp
+│   │       ├── META-INF
+│   │       │   └── MANIFEST.MF
+│   │       ├── public
+│   │       │   └── jquery-3.4.1.min.js
+│   │       ├── user
+│   │       │   ├── login.jsp
+│   │       │   └── product.jsp
+│   │       └── WEB-INF
+│   │           ├── views
+│   │           │   ├── login.jsp
+│   │           │   ├── register.jsp
+│   │           │   └── test.jsp
+│   │           └── web.xml
+│   └── test
 │       ├── java
-│       │   └── com
-│       │       └── example
-│       │           ├── action
-│       │           │   ├── BaseAction.java
-│       │           │   ├── HomeAction.java
-│       │           │   ├── LoginAction.java
-│       │           │   └── RegisterAction.java
-│       │           ├── constant
-│       │           │   └── ConstantName.java
-│       │           ├── dao
-│       │           │   ├── impl
-│       │           │   │   └── UserDaoImpl.java
-│       │           │   └── UserDao.java
-│       │           ├── interceptor
-│       │           │   └── AuthenticationInterceptor.java
-│       │           ├── pojo
-│       │           │   ├── entity
-│       │           │   │   ├── admin
-│       │           │   │   │   └── Admin.java
-│       │           │   │   └── user
-│       │           │   │       └── User.java
-│       │           │   └── hbm
-│       │           │       ├── admin
-│       │           │       │   └── Admin.hbm.xml
-│       │           │       └── user
-│       │           │           └── User.hbm.xml
-│       │           ├── service
-│       │           │   ├── impl
-│       │           │   │   └── UserServiceImpl.java
-│       │           │   └── UserService.java
-│       │           └── utils
-│       │               ├── DateUtil.java
-│       │               ├── FileUtil.java
-│       │               └── IdGenerateUtil.java
-│       ├── resources
-│       │   ├── logback.xml
-│       │   ├── spring
-│       │   │   ├── applicationContext.xml
-│       │   │   ├── jdbc.properties
-│       │   │   └── spring-beans.xml
-│       │   ├── sqlscript
-│       │   │   └── user.sql
-│       │   ├── struts
-│       │   │   ├── struts-home.xml
-│       │   │   ├── struts-login.xml
-│       │   │   └── struts-register.xml
-│       │   └── struts.xml
-│       └── webapp
-│           ├── admin
-│           │   └── login.jsp
-│           ├── error.jsp
-│           ├── home.jsp
-│           ├── META-INF
-│           │   └── MANIFEST.MF
-│           ├── public
-│           │   └── jquery-3.4.1.min.js
-│           ├── user
-│           │   └── login.jsp
-│           └── WEB-INF
-│               ├── views
-│               │   ├── login.jsp
-│               │   ├── register.jsp
-│               │   └── test.jsp
-│               └── web.xml
+│       └── resources
 └── target
     ├── classes
     │   ├── com
     │   │   └── example
     │   │       ├── action
+    │   │       │   ├── AdminLoginAction.class
     │   │       │   ├── BaseAction.class
     │   │       │   ├── HomeAction.class
     │   │       │   ├── LoginAction.class
+    │   │       │   ├── ProductAction.class
     │   │       │   └── RegisterAction.class
     │   │       ├── constant
     │   │       │   └── ConstantName.class
     │   │       ├── dao
+    │   │       │   ├── CategoryDao.class
     │   │       │   ├── impl
+    │   │       │   │   ├── CategoryDaoImpl.class
+    │   │       │   │   ├── ProductDaoImpl.class
     │   │       │   │   └── UserDaoImpl.class
+    │   │       │   ├── ProductDao.class
     │   │       │   └── UserDao.class
+    │   │       ├── dto
+    │   │       │   └── ProductPageResult.class
     │   │       ├── interceptor
     │   │       │   └── AuthenticationInterceptor.class
     │   │       ├── pojo
@@ -91,15 +121,23 @@
     │   │       │   │   ├── admin
     │   │       │   │   │   └── Admin.class
     │   │       │   │   └── user
+    │   │       │   │       ├── Category.class
+    │   │       │   │       ├── Product.class
     │   │       │   │       └── User.class
     │   │       │   └── hbm
     │   │       │       ├── admin
     │   │       │       │   └── Admin.hbm.xml
     │   │       │       └── user
+    │   │       │           ├── Category.hbm.xml
+    │   │       │           ├── Product.hbm.xml
     │   │       │           └── User.hbm.xml
     │   │       ├── service
+    │   │       │   ├── CategoryService.class
     │   │       │   ├── impl
+    │   │       │   │   ├── CategoryServiceImpl.class
+    │   │       │   │   ├── ProductServiceImpl.class
     │   │       │   │   └── UserServiceImpl.class
+    │   │       │   ├── ProductService.class
     │   │       │   └── UserService.class
     │   │       └── utils
     │   │           ├── DateUtil.class
@@ -113,18 +151,21 @@
     │   ├── sqlscript
     │   │   └── user.sql
     │   ├── struts
+    │   │   ├── struts-adminlogin.xml
     │   │   ├── struts-home.xml
     │   │   ├── struts-login.xml
+    │   │   ├── struts-product.xml
     │   │   └── struts-register.xml
     │   └── struts.xml
-    └── m2e-wtp
-        └── web-resources
-            └── META-INF
-                ├── MANIFEST.MF
-                └── maven
-                    └── com.example
-                        └── eshop
-                            ├── pom.properties
-                            └── pom.xml
+    ├── m2e-wtp
+    │   └── web-resources
+    │       └── META-INF
+    │           ├── MANIFEST.MF
+    │           └── maven
+    │               └── com.example
+    │                   └── eshop
+    │                       ├── pom.properties
+    │                       └── pom.xml
+    └── test-classes
 
-59 directories, 68 files
+65 directories, 103 files

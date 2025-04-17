@@ -28,6 +28,7 @@
 				<!-- 註解：basicStack 用來攔截請求中的參數並設定到全域變數，這些攔截器在 struts-default 中已經定義 -->
 				<interceptor-ref name="fileUpload" />
 				<interceptor-ref name="modelDrivenStack" />
+				<interceptor-ref name="defaultStack"/>
 			</interceptor-stack>
 
 		</interceptors>
@@ -62,4 +63,5 @@
     <include file="struts/struts-register.xml"/>
     <include file="struts/struts-home.xml"/>
     <include file="struts/struts-adminlogin.xml"/>
+    <include file="struts/struts-product.xml"/>
 </struts>
