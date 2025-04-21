@@ -2,7 +2,7 @@
 	import="com.example.pojo.entity.user.User"%>
 <%
 User user = (User) session.getAttribute("user");
-if (user != null && user.getLoginId() != null && !"".equals(user.getLoginId())) {
+if (user != null && user.getUsername() != null && !"".equals(user.getUsername())) {
 	response.sendRedirect("home/index");
 	return;
 }

@@ -2,13 +2,16 @@ package com.example.dao;
 
 import java.util.List;
 
-import com.example.pojo.entity.user.Product;
+import com.example.pojo.entity.Product;
 
 /**
  * ProductDao 介面，定義商品相關的資料存取方法。
  */
 public interface ProductDao {
 
+	void save(Product product);
+	void update(Product product);
+	void delete(Long id);
     /**
      * 查詢所有商品
      * 
@@ -64,7 +67,7 @@ public interface ProductDao {
      * @param id 商品 ID
      * @return 商品物件，若找不到則回傳 null
      */
-    public Product findById(String id);
+    public Product findById(Long id);
     /**
      商品頁面和排序
      */

@@ -45,7 +45,7 @@ public class AuthenticationInterceptor implements Interceptor {
         // 檢查使用者是否登入，若已登入，則繼續執行後續 Action，若未登入，則返回登入頁面
         User user = getLoggedInUser();
         
-        if (user != null && user.getLoginId() != null && !user.getLoginId().isEmpty()) {
+        if (user != null && user.getUsername() != null && !user.getUsername().isEmpty()) {
             // 已登入，繼續執行
             return invocation.invoke();
         }

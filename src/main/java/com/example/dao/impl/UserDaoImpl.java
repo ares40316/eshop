@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
      * @return 如果查詢到資料，回傳對應的 User 物件；若無則回傳 null
      */
     @Override
-    public User getLoginUser(User user) {
+    public User getUsername(User user) {
         // 使用 Hibernate 查詢
         return getUserByHibernate(user);
     }
@@ -46,19 +46,28 @@ public class UserDaoImpl implements UserDao {
     }
     
     @Override
-    public User findUserByLoginId(String loginId) {
-        String hql = "from User where loginId = :loginId";
+    public User findUserByUsername(String username) {
+        String hql = "from User where username = :username";
         Query<User> query = getSession().createQuery(hql, User.class);
-        query.setParameter("loginId", loginId);
+        query.setParameter("username", username);
         List<User> userList = query.list();
         return userList.isEmpty() ? null : userList.get(0);
     }
     
     @Override
-    public User findUserByTel(String tel) {
-        String hql = "from User where tel = :tel";
+    public User findUserByPhone(String phone) {
+        String hql = "from User where phone = :phone";
         Query<User> query = getSession().createQuery(hql, User.class);
-        query.setParameter("tel", tel);
+        query.setParameter("phone", phone);
+        List<User> userList = query.list();
+        return userList.isEmpty() ? null : userList.get(0);
+    }
+    
+    @Override
+    public User findUserByEmail(String email) {
+        String hql = "from User where email = :email";
+        Query<User> query = getSession().createQuery(hql, User.class);
+        query.setParameter("email", email);
         List<User> userList = query.list();
         return userList.isEmpty() ? null : userList.get(0);
     }
@@ -71,10 +80,10 @@ public class UserDaoImpl implements UserDao {
      */
     private User getUserByHibernate(User user) {
         // 定義 HQL 查詢語句
-        String hql = "from User where loginId = :loginId and password = :password";
+        String hql = "from User where username = :username and password = :password";
         // 使用 Hibernate 的 Query 物件來執行 HQL 查詢
         Query<User> query = getSession().createQuery(hql, User.class);
-        query.setParameter("loginId", user.getLoginId());
+        query.setParameter("username", user.getUsername());
         query.setParameter("password", user.getPassword());
         List<User> userList = query.list();
 

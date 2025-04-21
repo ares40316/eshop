@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.CategoryDao;
-import com.example.pojo.entity.user.Category;
+import com.example.pojo.entity.Category;
 import com.example.service.CategoryService;
 
 @Service

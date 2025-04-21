@@ -39,16 +39,16 @@ public class LoginAction extends BaseAction {
      */
     public String doLogin() {
         // 檢查是否提供了登入 ID 和密碼
-        if (user == null || user.getLoginId() == null || user.getPassword() == null) {
+        if (user == null || user.getUsername() == null || user.getPassword() == null) {
             getSession().setAttribute("msg", "請提供有效的帳號與密碼");
             return INPUT;
         }
 
         // 呼叫 UserService 來獲取使用者資料
-        user = userService.getLoginUser(user);
+        user = userService.getUsername(user);
 
         // 如果用戶資料存在且登入 ID 正確
-        if (user != null && !"".equals(user.getLoginId())) {
+        if (user != null && !"".equals(user.getUsername())) {
             // 登入成功，將用戶資料放入 session 中
             getSession().setAttribute(ConstantName.SESSION_USER, user);
             return SUCCESS;

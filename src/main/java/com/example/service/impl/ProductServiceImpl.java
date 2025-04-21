@@ -4,13 +4,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.ProductDao;
 import com.example.dto.ProductPageResult;
-import com.example.pojo.entity.user.Product;
+import com.example.pojo.entity.Product;
 import com.example.service.ProductService;
 
 /**
@@ -54,10 +55,33 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(String id) {
-        return productDao.findById(id);
+    public Product findById(Long id) {
+        Product p = productDao.findById(id);
+        if (p != null) {
+            // 预初始化延迟集合，避免 JSP LazyInitializationException
+            Hibernate.initialize(p.getImages());
+            Hibernate.initialize(p.getCategories());
+        }
+        return p;
     }
 
+    @Override
+    public void remove(Long id) {
+        productDao.delete(id);
+    }
+    
+    @Transactional(readOnly = false)
+    @Override
+    public void create(Product product) {
+        productDao.save(product);
+    }
+
+    @Transactional(readOnly = false)
+    @Override
+    public void modify(Product product) {
+        productDao.update(product);
+    }
+    
     @Override
     public List<Product> searchWithFilter(String keyword, List<String> categoryIds) {
         keyword = StringUtils.trimToNull(keyword);
@@ -74,14 +98,23 @@ public class ProductServiceImpl implements ProductService {
             return productDao.searchByKeywordAndCategories(keyword, categoryIds);
         }
     }
+    
     @Override
-    public ProductPageResult searchWithFilterAndPaging(String keyword, List<String> categoryIds, int pageNo, int pageSize) {
+    public ProductPageResult searchWithFilterAndPaging(String keyword,
+                                                       List<String> categoryIds,
+                                                       int pageNo, int pageSize) {
         keyword = StringUtils.trimToNull(keyword);
         int totalCount = productDao.countSearchResults(keyword, categoryIds);
         int totalPages = (int) Math.ceil((double) totalCount / pageSize);
         int offset = (pageNo - 1) * pageSize;
 
-        List<Product> pageData = productDao.searchPaged(keyword, categoryIds, offset, pageSize);
-        return new ProductPageResult(pageData, totalPages, pageNo);
+        List<Product> data = productDao.searchPaged(keyword, categoryIds, offset, pageSize);
+        for (Product p : data) {
+            Hibernate.initialize(p.getImages());
+            Hibernate.initialize(p.getCategories());
+        }
+        return new ProductPageResult(data, totalPages, pageNo);
     }
+    
+    
 }

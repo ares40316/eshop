@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <!-- 
+        商品管理功能封裝包配置：
+        - 命名空间设为 "/admin/product"，URL路径需匹配 /admin/product/*
+        - 继承自 struts-default 基础包，包含默认拦截器栈
+        - 使用自定义拦截器栈增强功能
+    -->
+    <package name="adminProduct" namespace="/admin/product" extends="struts-default">
+        
+        <!-- ==================== 拦截器配置 ==================== -->
+        <interceptors>
+            <!-- 
+                自定义拦截器栈：商品管理专用栈
+                - 包含模型驱动、文件上传、校验等核心功能
+                - 保留默认拦截器栈作为基础功能
+            -->
+            <interceptor-stack name="productAdminStack">
+                <!-- 模型驱动拦截器 -->
+                <interceptor-ref name="modelDriven">
+                    <param name="refreshModelBeforeResult">true</param>
+                </interceptor-ref>
+                
+                <!-- 文件上传拦截器 -->
+                <interceptor-ref name="fileUpload">
+                    <param name="maximumSize">5242880</param> <!-- 5MB限制 -->
+                    <param name="allowedTypes">image/png,image/jpeg</param>
+                </interceptor-ref>
+                
+                <!-- 参数校验拦截器 -->
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,list</param>
+                </interceptor-ref>
+                
+                <!-- 默认拦截器栈 -->
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        
+        <!-- 设置当前包默认使用自定义拦截器栈 -->
+        <default-interceptor-ref name="productAdminStack" />
+        
+        
+        <!-- ==================== 全局结果配置 ==================== -->
+        <global-results>
+            <!-- 通用错误页面 -->
+            <result name="error">/admin/common/error.jsp</result>
+            <!-- 输入校验失败跳转 -->
+            <result name="input">/admin/common/validationError.jsp</result>
+        </global-results>
+        
+
+        <!-- ==================== Action 配置 ==================== -->
+        
+        <!-- 
+            商品列表查询：
+            - Action名称：list
+            - 对应方法：list()
+            - 执行流程：查询数据库 -> 返回列表页
+        -->
+        <action name="list" class="com.eshop.action.AdminProductAction" method="list">
+            <result name="success">/admin/product/list.jsp</result>
+            <!-- 特殊处理：空结果集提示 -->
+            <result name="empty" type="redirectAction">
+                <param name="actionName">list</param>
+                <param name="namespace">/admin/product</param>
+                <param name="message">未找到符合条件的商品</param>
+            </result>
+        </action>
+
+        <!-- 
+            商品编辑表单页：
+            - Action名称：edit
+            - 对应方法：edit()
+            - 功能：加载商品数据到表单
+        -->
+        <action name="edit" class="com.eshop.action.AdminProductAction" method="edit">
+            <result name="success">/admin/product/editForm.jsp</result>
+            <!-- 防止重复提交令牌 -->
+            <interceptor-ref name="token">
+                <param name="includeMethods">edit</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- 
+            商品保存操作：
+            - Action名称：save
+            - 对应方法：save()
+            - 执行后重定向到列表页
+        -->
+        <action name="save" class="com.eshop.action.AdminProductAction" method="save">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list</param>
+                <param name="namespace">/admin/product</param>
+            </result>
+            <!-- 文件上传特殊处理 -->
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">10485760</param> <!-- 10MB限制 -->
+            </interceptor-ref>
+        </action>
+
+        <!-- 
+            商品删除操作：
+            - Action名称：delete
+            - 对应方法：delete()
+            - 需要管理员权限
+        -->
+        <action name="delete" class="com.eshop.action.AdminProductAction" method="delete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list</param>
+                <param name="namespace">/admin/product</param>
+            </result>
+            <!-- 权限校验 -->
+            <interceptor-ref name="roles">
+                <param name="allowedRoles">superadmin,product_admin</param>
+            </interceptor-ref>
+        </action>
+
+    </package>
+</struts>

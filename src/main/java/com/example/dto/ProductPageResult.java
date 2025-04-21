@@ -2,7 +2,7 @@
 package com.example.dto;
 
 import java.util.List;
-import com.example.pojo.entity.user.Product;
+import com.example.pojo.entity.Product;
 
 public class ProductPageResult {
     private List<Product> products;
@@ -15,15 +15,9 @@ public class ProductPageResult {
         this.pageNo = pageNo;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
+    public List<Product> getProducts() { return products; }
 
-    public int getTotalPages() {
-        return totalPages;
-    }
+    public int getTotalPages()    { return totalPages; }
 
-    public int getPageNo() {
-        return pageNo;
-    }
+    public int getPageNo()        { return pageNo; }
 }

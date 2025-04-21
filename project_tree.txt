@@ -9,6 +9,7 @@
 │   │   │       └── example
 │   │   │           ├── action
 │   │   │           │   ├── AdminLoginAction.java
+│   │   │           │   ├── AdminProductAction.java
 │   │   │           │   ├── BaseAction.java
 │   │   │           │   ├── HomeAction.java
 │   │   │           │   ├── LoginAction.java
@@ -30,18 +31,39 @@
 │   │   │           │   └── AuthenticationInterceptor.java
 │   │   │           ├── pojo
 │   │   │           │   ├── entity
+│   │   │           │   │   ├── AccessToken.java
+│   │   │           │   │   ├── Address.java
 │   │   │           │   │   ├── admin
 │   │   │           │   │   │   └── Admin.java
-│   │   │           │   │   └── user
-│   │   │           │   │       ├── Category.java
-│   │   │           │   │       ├── Product.java
-│   │   │           │   │       └── User.java
+│   │   │           │   │   ├── ApiClient.java
+│   │   │           │   │   ├── CartItemId.java
+│   │   │           │   │   ├── CartItem.java
+│   │   │           │   │   ├── Cart.java
+│   │   │           │   │   ├── Category.java
+│   │   │           │   │   ├── ChatMessage.java
+│   │   │           │   │   ├── ChatSession.java
+│   │   │           │   │   ├── Coupon.java
+│   │   │           │   │   ├── Notification.java
+│   │   │           │   │   ├── OAuthAccount.java
+│   │   │           │   │   ├── OrderItemId.java
+│   │   │           │   │   ├── OrderItem.java
+│   │   │           │   │   ├── Order.java
+│   │   │           │   │   ├── ProductCategoryId.java
+│   │   │           │   │   ├── ProductCategory.java
+│   │   │           │   │   ├── ProductImage.java
+│   │   │           │   │   ├── Product.java
+│   │   │           │   │   ├── Recommendation.java
+│   │   │           │   │   ├── Review.java
+│   │   │           │   │   ├── SearchLog.java
+│   │   │           │   │   ├── user
+│   │   │           │   │   │   └── User.java
+│   │   │           │   │   ├── UserCouponId.java
+│   │   │           │   │   ├── UserCoupon.java
+│   │   │           │   │   └── UserView.java
 │   │   │           │   └── hbm
 │   │   │           │       ├── admin
 │   │   │           │       │   └── Admin.hbm.xml
 │   │   │           │       └── user
-│   │   │           │           ├── Category.hbm.xml
-│   │   │           │           ├── Product.hbm.xml
 │   │   │           │           └── User.hbm.xml
 │   │   │           ├── service
 │   │   │           │   ├── CategoryService.java
@@ -65,6 +87,7 @@
 │   │   │   │   └── user.sql
 │   │   │   ├── struts
 │   │   │   │   ├── struts-adminlogin.xml
+│   │   │   │   ├── struts-adminproduct.xml
 │   │   │   │   ├── struts-home.xml
 │   │   │   │   ├── struts-login.xml
 │   │   │   │   ├── struts-product.xml
@@ -84,6 +107,7 @@
 │   │       │   └── product.jsp
 │   │       └── WEB-INF
 │   │           ├── views
+│   │           │   ├── admin_login.jsp
 │   │           │   ├── login.jsp
 │   │           │   ├── register.jsp
 │   │           │   └── test.jsp
@@ -97,6 +121,7 @@
     │   │   └── example
     │   │       ├── action
     │   │       │   ├── AdminLoginAction.class
+    │   │       │   ├── AdminProductAction.class
     │   │       │   ├── BaseAction.class
     │   │       │   ├── HomeAction.class
     │   │       │   ├── LoginAction.class
@@ -118,18 +143,45 @@
     │   │       │   └── AuthenticationInterceptor.class
     │   │       ├── pojo
     │   │       │   ├── entity
+    │   │       │   │   ├── AccessToken.class
+    │   │       │   │   ├── Address.class
     │   │       │   │   ├── admin
     │   │       │   │   │   └── Admin.class
-    │   │       │   │   └── user
-    │   │       │   │       ├── Category.class
-    │   │       │   │       ├── Product.class
-    │   │       │   │       └── User.class
+    │   │       │   │   ├── ApiClient.class
+    │   │       │   │   ├── Cart.class
+    │   │       │   │   ├── CartItem.class
+    │   │       │   │   ├── CartItemId.class
+    │   │       │   │   ├── Category.class
+    │   │       │   │   ├── ChatMessage$Sender.class
+    │   │       │   │   ├── ChatMessage.class
+    │   │       │   │   ├── ChatSession.class
+    │   │       │   │   ├── Coupon$DiscountType.class
+    │   │       │   │   ├── Coupon.class
+    │   │       │   │   ├── Notification$RecipientType.class
+    │   │       │   │   ├── Notification.class
+    │   │       │   │   ├── OAuthAccount$Provider.class
+    │   │       │   │   ├── OAuthAccount.class
+    │   │       │   │   ├── Order$OrderStatus.class
+    │   │       │   │   ├── Order.class
+    │   │       │   │   ├── OrderItem.class
+    │   │       │   │   ├── OrderItemId.class
+    │   │       │   │   ├── ProductCategory.class
+    │   │       │   │   ├── ProductCategoryId.class
+    │   │       │   │   ├── Product.class
+    │   │       │   │   ├── ProductImage$ImageType.class
+    │   │       │   │   ├── ProductImage.class
+    │   │       │   │   ├── Recommendation.class
+    │   │       │   │   ├── Review.class
+    │   │       │   │   ├── SearchLog.class
+    │   │       │   │   ├── user
+    │   │       │   │   │   └── User.class
+    │   │       │   │   ├── UserCoupon.class
+    │   │       │   │   ├── UserCouponId.class
+    │   │       │   │   └── UserView.class
     │   │       │   └── hbm
     │   │       │       ├── admin
     │   │       │       │   └── Admin.hbm.xml
     │   │       │       └── user
-    │   │       │           ├── Category.hbm.xml
-    │   │       │           ├── Product.hbm.xml
     │   │       │           └── User.hbm.xml
     │   │       ├── service
     │   │       │   ├── CategoryService.class
@@ -152,6 +204,7 @@
     │   │   └── user.sql
     │   ├── struts
     │   │   ├── struts-adminlogin.xml
+    │   │   ├── struts-adminproduct.xml
     │   │   ├── struts-home.xml
     │   │   ├── struts-login.xml
     │   │   ├── struts-product.xml
@@ -168,4 +221,4 @@
     │                       └── pom.xml
     └── test-classes
 
-65 directories, 103 files
+65 directories, 156 files

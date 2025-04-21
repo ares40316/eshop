@@ -56,10 +56,20 @@
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<!-- 指定資料庫連線 -->
 		<property name="dataSource" ref="dataSource" />
+		
+		<!-- 新增：扫描所有用 @Entity 注解的实体 -->
+    <property name="packagesToScan">
+      <list>
+        <value>com.example.pojo.entity</value>
+      </list>
+    </property>
+    
 		<property name="mappingLocations">
 		<list>
 			<value>classpath:com/example/pojo/hbm/user/*.hbm.xml</value>
 			<value>classpath:com/example/pojo/hbm/admin/*.hbm.xml</value>
+			<value>classpath:com/example/pojo/entity/hbm/user/*.hbm.xml</value>
+	   		<value>classpath:com/example/pojo/entity/hbm/admin/*.hbm.xml</value>
 		</list>
 		</property>
 		<!-- Hibernate 相關屬性設定 -->
@@ -78,6 +88,7 @@
 				<prop key="hibernate.connection.autocommit">false</prop>
 				<!-- 設定資料表自動建立 -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop> <!-- 可選值：create, update, create-drop, validate -->
+				<prop key="hibernate.archive.autodetection">hbm,class</prop>
 			</props>
 		</property>
 	</bean>

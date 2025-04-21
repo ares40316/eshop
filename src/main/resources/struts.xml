@@ -64,4 +64,5 @@
     <include file="struts/struts-home.xml"/>
     <include file="struts/struts-adminlogin.xml"/>
     <include file="struts/struts-product.xml"/>
+    <include file="struts/struts-adminproduct.xml"/>
 </struts>

@@ -10,7 +10,7 @@ public interface UserDao {
      * @param user 包含使用者登入資訊的物件，通常是帳號與密碼
      * @return 如果找到匹配的使用者資料，則回傳 User 物件；否則回傳 null
      */
-    public User getLoginUser(User user);
+    public User getUsername(User user);
 
     /**
      * 新增一個使用者資料到資料庫。
@@ -26,12 +26,19 @@ public interface UserDao {
      * @param loginId 使用者登入帳號
      * @return 如果找到，返回對應的 User 物件；否則返回 null
      */
-    public User findUserByLoginId(String loginId);
+    public User findUserByUsername(String username);
     
     /**
      * 根據電話查詢使用者資料。
      * @param tel 使用者的電話
      * @return 如果找到該電話對應的使用者，返回 User 物件；否則返回 null
      */
-    public User findUserByTel(String tel);
+    public User findUserByPhone(String phone);
+    
+    /**
+     * 根據信箱查詢使用者資料。
+     * @param email 使用者的信箱
+     * @return 如果找到該信箱對應的使用者，返回 User 物件；否則返回 null
+     */
+    public User findUserByEmail(String email);
 }

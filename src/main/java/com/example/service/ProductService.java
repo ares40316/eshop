@@ -3,7 +3,7 @@ package com.example.service;
 import java.util.List;
 
 import com.example.dto.ProductPageResult;
-import com.example.pojo.entity.user.Product;
+import com.example.pojo.entity.Product;
 
 /**
  * ProductService 介面，定義商品模組的業務邏輯操作。
@@ -65,8 +65,8 @@ public interface ProductService {
      * @param id 商品 ID
      * @return 商品物件
      */
-    public Product findById(String id);
-    
+    public Product findById(Long id);
+    void remove(Long id);
     /**
      * 綜合查詢（分類、多分類、關鍵字）
      * 
@@ -74,10 +74,17 @@ public interface ProductService {
      * @param categoryIds 多個分類 ID
      * @return 商品清單
      */
+    
+    void create(Product product);
+    void modify(Product product);
+    
+    
     public List<Product> searchWithFilter(String keyword, List<String> categoryIds);
 
  // ProductService.java
-    ProductPageResult searchWithFilterAndPaging(String keyword, List<String> categoryIds, int pageNo, int pageSize);
+    ProductPageResult searchWithFilterAndPaging(String keyword, List<String> categoryIds,
+            int pageNo, int pageSize);
 
+    
     
 }

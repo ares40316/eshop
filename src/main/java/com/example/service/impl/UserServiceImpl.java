@@ -26,9 +26,9 @@ public class UserServiceImpl implements UserService {
      * @return     如果使用者存在，返回對應的 User 物件，否則返回 null
      */
     @Override
-    public User getLoginUser(User user) {
+    public User getUsername(User user) {
         // 呼叫 UserDao 來查詢登入的使用者
-        return userDao.getLoginUser(user);
+        return userDao.getUsername(user);
     }
 
     /**
@@ -42,16 +42,23 @@ public class UserServiceImpl implements UserService {
         userDao.addUser(user);
     }
 
-	@Override
-	public User findUserByLoginId(String loginId) {
+    @Override
+	public User findUserByEmail(String email) {
 		// TODO Auto-generated method stub
-		return userDao.findUserByLoginId(loginId);
+		return userDao.findUserByEmail(email);
+	
+	}
+    
+	@Override
+	public User findUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return userDao.findUserByUsername(username);
 	
 	}
 	
 	@Override
-	public User findUserByTel(String tel) {
-	    return userDao.findUserByTel(tel);
+	public User findUserByPhone(String phone) {
+	    return userDao.findUserByPhone(phone);
 	}
 
 }

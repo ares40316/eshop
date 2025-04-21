@@ -1,116 +1,105 @@
 package com.example.action;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.example.dto.ProductPageResult;
-import com.example.pojo.entity.user.Product;
-import com.example.pojo.entity.user.Category;
+import com.example.pojo.entity.Product;
+import com.example.pojo.entity.Category;
 import com.example.service.ProductService;
 import com.example.service.CategoryService;
-
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.interceptor.SessionAware;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.apache.commons.lang3.StringUtils;
-
 @Controller
 public class ProductAction extends ActionSupport implements SessionAware {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductAction.class);
+
     @Autowired
     private ProductService productService;
-    
     @Autowired
     private CategoryService categoryService;
 
     private String keyword;
-    private List<String> categoryIds = new ArrayList<>();
-    private String id;
-    private String productId;
+    private List<String> categoryIds;
     private int pageNo = 1;
-    private final int pageSize = 10;
     private int totalPages;
     private List<Product> productList;
-    private Product product;
     private List<Category> categoryList;
+    private Long id;
+    private Long productId;
     private Map<String, Object> session;
 
-   
-    public void setCategoryIds(String[] categoryIdsArray) {
-        this.categoryIds = Arrays.asList(categoryIdsArray);
-    }
-    
     @Override
     public String execute() {
-        // 強制載入分類
-        this.categoryList = categoryService.findAll();
-        
-        // 參數處理
-        keyword = StringUtils.trimToNull(keyword);
-        if (categoryIds == null) categoryIds = new ArrayList<>();
-        
-        // 分頁保護
+        categoryList = categoryService.findAll();
+        keyword = (keyword != null && !keyword.trim().isEmpty()) ? keyword.trim() : null;
+        if (categoryIds == null) categoryIds = java.util.Collections.emptyList();
         if (pageNo < 1) pageNo = 1;
 
-        // 調試日誌
-        System.out.println("搜索參數 - keyword: " + keyword + ", categoryIds: " + categoryIds);
+        logger.debug("Search params - keyword: {}, categories: {}, pageNo: {}", keyword, categoryIds, pageNo);
 
         try {
-            ProductPageResult result = productService.searchWithFilterAndPaging(
-                keyword, 
-                categoryIds.isEmpty() ? null : categoryIds,
-                pageNo, 
-                pageSize
-            );
-            
-            this.productList = result.getProducts();
-            this.totalPages = result.getTotalPages();
-            
-            System.out.println("查詢成功，獲取商品數: " + productList.size());
+            ProductPageResult result = productService
+                .searchWithFilterAndPaging(keyword, categoryIds, pageNo, 10);
+            productList = result.getProducts();
+            totalPages = result.getTotalPages();
             return SUCCESS;
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error fetching products", e);
             addActionError("查詢錯誤: " + e.getMessage());
             return ERROR;
         }
     }
 
     public String detail() {
-        product = productService.findById(id);
-        return (product != null) ? SUCCESS : ERROR;
+        try {
+            productList = null; // clear list
+            categoryList = categoryService.findAll();
+            // load single product
+            Product p = productService.findById(id);
+            if (p == null) return ERROR;
+            session.put("detailProduct", p);
+            return SUCCESS;
+        } catch (Exception e) {
+            logger.error("Error loading product detail", e);
+            return ERROR;
+        }
     }
 
     public String addToCart() {
-        Product selected = productService.findById(productId);
-        if (selected != null) {
+        Product p = productService.findById(productId);
+        if (p != null) {
             @SuppressWarnings("unchecked")
-            Map<String, Integer> cart = (Map<String, Integer>) session.get("cart");
-            if (cart == null) {
-                cart = new java.util.HashMap<>();
-            }
+            Map<Long, Integer> cart = (Map<Long, Integer>) session.get("cart");
+            if (cart == null) cart = new java.util.HashMap<>();
             cart.put(productId, cart.getOrDefault(productId, 0) + 1);
             session.put("cart", cart);
         }
         return SUCCESS;
     }
 
-    
-    
-    // Getter/Setter 方法保持不變
-    public List<Product> getProductList() { return productList; }
-    public Product getProduct() { return product; }
-    public List<Category> getCategoryList() { return categoryList; }
+    // --- Getters/Setters ---
+    public String getKeyword() { return keyword; }
     public void setKeyword(String keyword) { this.keyword = keyword; }
+
+    public List<String> getCategoryIds() { return categoryIds; }
     public void setCategoryIds(List<String> categoryIds) { this.categoryIds = categoryIds; }
-    public void setId(String id) { this.id = id; }
-    public void setProductId(String productId) { this.productId = productId; }
-    public void setPageNo(int pageNo) { this.pageNo = pageNo; }
+
     public int getPageNo() { return pageNo; }
+    public void setPageNo(int pageNo) { this.pageNo = pageNo; }
+
     public int getTotalPages() { return totalPages; }
-    @Override 
+    public List<Product> getProductList() { return productList; }
+    public List<Category> getCategoryList() { return categoryList; }
+
+    public void setId(Long id) { this.id = id; }
+    public void setProductId(Long productId) { this.productId = productId; }
+
+    @Override
     public void setSession(Map<String, Object> session) { this.session = session; }
 }

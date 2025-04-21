@@ -14,7 +14,7 @@ public interface UserService {
      * @param user  包含使用者登入帳號與密碼的物件
      * @return      如果成功登入，返回對應的使用者資料，否則返回 null
      */
-    public User getLoginUser(User user);
+    public User getUsername(User user);
 
     /**
      * 新增一個新的使用者
@@ -23,7 +23,9 @@ public interface UserService {
      */
     public void addUser(User user);
     
-    public User findUserByLoginId(String loginId);
+    public User findUserByEmail(String email);
     
-    public User findUserByTel(String tel);
+    public User findUserByUsername(String username);
+    
+    public User findUserByPhone(String phone);
 }

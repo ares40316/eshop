@@ -1,57 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
-    <!-- 定義 User 類別對應的資料表，這裡是 'user' 資料表 -->
-    <class name="com.example.pojo.entity.user.User" table="user">
-        <!-- 註解：用來描述該資料表的功能 -->
-        <comment>使用者資料表</comment>
-        
-        <!-- 定義 id 欄位，並指定生成策略 -->
-        <id name="id" type="java.lang.String">
-            <column name="id" length="20" />
-            <!-- 註解：使用自定義的 id 生成策略 -->
-            <generator class="com.example.utils.IdGenerateUtil" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- 指定 Hibernate 對應的 Java 類別所屬 package -->
+<hibernate-mapping package="com.example.pojo.entity.user">
+
+    <!-- 將 User 類別對應到資料表 users -->
+    <class name="User" table="users">
+
+        <!-- 主鍵欄位：id，自動遞增策略（identity） -->
+        <id name="id" column="id">
+            <generator class="identity"/>
         </id>
-        
-        <!-- 定義使用者名稱欄位 -->
-        <property name="name" type="java.lang.String">
-            <column name="name" length="20">
-                <!-- 註解：使用者名稱 -->
-                <comment>使用者名稱</comment>
-            </column>
-        </property>
-        
-        <!-- 定義登入帳號欄位，並設置為不可為 null -->
-        <property name="loginId" type="java.lang.String" not-null="true">
-            <column name="login_id" length="20">
-                <!-- 註解：登入帳號 -->
-                <comment>登入帳號</comment>
-            </column>
-        </property>
-        
-        <!-- 定義密碼欄位，並設置為不可為 null -->
-        <property name="password" type="java.lang.String" not-null="true">
-            <column name="password" length="20">
-                <!-- 註解：使用者密碼 -->
-                <comment>密碼</comment>
-            </column>
-        </property>
-        
-        <!-- 定義電話號碼欄位 -->
-        <property name="tel" type="java.lang.String">
-            <column name="tel" length="12">
-                <!-- 註解：電話號碼 -->
-                <comment>電話號碼</comment>
-            </column>
-        </property>
-        
-        <!-- 定義註冊日期欄位 -->
-        <property name="createDate" type="java.util.Date">
-            <column name="create_date" length="7">
-                <!-- 註解：註冊時間 -->
-                <comment>註冊時間</comment>
-            </column>
-        </property>
+
+        <!-- 使用者名稱欄位：對應 username，必填 -->
+        <property name="username" column="username" not-null="true"/>
+
+        <!-- 使用者密碼欄位：對應 password，必填 -->
+        <property name="password" column="password" not-null="true"/>
+
+        <!-- 電子郵件欄位：對應 email，必填 -->
+        <property name="email" column="email" not-null="true"/>
+
+        <!-- 聯絡電話欄位：對應 phone，選填 -->
+        <property name="phone" column="phone"/>
+
+        <!-- 建立時間欄位：對應 created_at，資料型態為 LocalDateTime 或 Date -->
+        <property name="createdAt" column="created_at"/>
+
+        <!-- 更新時間欄位：對應 updated_at，資料型態為 LocalDateTime 或 Date -->
+        <property name="updatedAt" column="updated_at"/>
+
     </class>
 </hibernate-mapping>

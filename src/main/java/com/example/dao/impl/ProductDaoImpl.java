@@ -3,20 +3,17 @@ package com.example.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.*;
 
 import com.example.dao.ProductDao;
-import com.example.pojo.entity.user.Product;
-
-import javax.persistence.criteria.*;
+import com.example.pojo.entity.Product;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import java.util.stream.Collectors;
 /**
  * ProductDao 實作類別，負責商品的資料庫操作。
  */
@@ -25,7 +22,10 @@ public class ProductDaoImpl implements ProductDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-
+    
+    private Session getSession() {
+        return sessionFactory.getCurrentSession();
+    }
     /**
      * 查詢所有商品資料。
      */
@@ -98,71 +98,89 @@ public class ProductDaoImpl implements ProductDao {
      * 根據商品 ID 查詢商品。
      */
     @Override
-    public Product findById(String id) {
+    public Product findById(Long id) {
         return getSession().get(Product.class, id);
     }
 
-    /**
-     * 取得 Hibernate 的當前 Session。
-     */
-    private Session getSession() {
-        return sessionFactory.getCurrentSession();   
-    }
     
     @Override
     public List<Product> searchPaged(String keyword, List<String> categoryIds, int offset, int limit) {
         CriteriaBuilder cb = getSession().getCriteriaBuilder();
-        CriteriaQuery<Product> query = cb.createQuery(Product.class);
-        Root<Product> root = query.from(Product.class);
+        CriteriaQuery<Product> cq = cb.createQuery(Product.class);
+        Root<Product> root = cq.from(Product.class);
 
-        List<Predicate> predicates = new ArrayList<>();
-        
+        // EAGER fetch images and categories in one query
+        root.fetch("images", JoinType.LEFT);
+        root.fetch("categories", JoinType.LEFT);
+
+        List<Predicate> preds = new ArrayList<>();
         if (StringUtils.isNotBlank(keyword)) {
-            predicates.add(cb.or(
-                cb.like(root.get("name"), "%" + keyword + "%"),
-                cb.like(root.get("description"), "%" + keyword + "%")
-            ));
+            preds.add(cb.like(root.get("name"), "%" + keyword + "%"));
         }
-        
         if (categoryIds != null && !categoryIds.isEmpty()) {
-            predicates.add(root.get("category").get("id").in(categoryIds));
+            // categories is a collection of ProductCategory; join it
+            preds.add(root.join("categories").get("categoryId").in(categoryIds));
         }
-        
-        query.where(predicates.toArray(new Predicate[0]));
-        
-        return getSession().createQuery(query)
-                          .setFirstResult(offset)
-                          .setMaxResults(limit)
-                          .getResultList();
+
+        cq.select(root)
+          .distinct(true)  // avoid duplicates from the two joins
+          .where(preds.toArray(new Predicate[0]));
+
+        Query<Product> query = getSession()
+            .createQuery(cq)
+            .setFirstResult(offset)
+            .setMaxResults(limit);
+
+        return query.getResultList();
     }
+
 
 
 
     @Override
     public int countSearchResults(String keyword, List<String> categoryIds) {
-        StringBuilder hql = new StringBuilder("select count(*) from Product where 1=1");
+        StringBuilder hql = new StringBuilder("select count(distinct p.id) from Product p");
+        if (categoryIds != null && !categoryIds.isEmpty()) {
+            hql.append(" join p.categories pc");
+        }
+        hql.append(" where 1=1");
         if (keyword != null && !keyword.isBlank()) {
-            hql.append(" and name like :keyword");
+            hql.append(" and p.name like :keyword");
         }
         if (categoryIds != null && !categoryIds.isEmpty()) {
-            hql.append(" and category.id in (:categoryIds)");
+            hql.append(" and pc.categoryId in (:categoryIds)");
         }
-        // 除錯輸出最終拼接的 HQL 查詢
-        System.out.println("HQL (countSearchResults): " + hql.toString());
-        
         Query<Long> query = getSession().createQuery(hql.toString(), Long.class);
         if (keyword != null && !keyword.isBlank()) {
             query.setParameter("keyword", "%" + keyword.trim() + "%");
         }
         if (categoryIds != null && !categoryIds.isEmpty()) {
-            query.setParameterList("categoryIds", categoryIds);
+            // 转成 Long 再绑定
+            List<Long> longIds = categoryIds.stream()
+                                            .map(Long::valueOf)
+                                            .collect(Collectors.toList());
+            query.setParameterList("categoryIds", longIds);
         }
-        
         Long count = query.uniqueResult();
         return count != null ? count.intValue() : 0;
     }
 
+    @Override
+    public void save(Product p) { getSession().save(p); }
 
+    @Override
+    public void update(Product p) { getSession().update(p); }
 
+    @Override
+    public void delete(Long id) {
+        Product p = findById(id);
+        if (p != null) {
+            getSession().delete(p);
+        }
+    }
+    /**
+     * 取得 Hibernate 的當前 Session。
+     */
+   
 
 }

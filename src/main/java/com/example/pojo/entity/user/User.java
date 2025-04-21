@@ -1,89 +1,92 @@
 package com.example.pojo.entity.user;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
- * 使用者實體類別，用來封裝使用者資料。
- * 若透過 JPA 注解方式來配置，則無需再額外配置 hbm.xml 文件。
+ * User（使用者 / 會員）實體類別
+ * 表示平台會員的基本資料，包含帳號、密碼、Email、手機與建立/更新時間
+ * 本類別未使用 JPA 註解，適用於純 Java 類別、DTO、或非 ORM 映射用途
  */
 public class User {
 
-    // 使用者的唯一識別碼
-    private String id;
+    /** 使用者 ID（唯一識別碼） */
+    private Long id;
 
-    // 使用者名稱
-    private String name;
+    /** 使用者帳號名稱，需唯一（例如用作登入） */
+    private String username;
 
-    // 使用者登入帳號
-    private String loginId;
-
-    // 使用者密碼
+    /** 使用者密碼（應加密儲存） */
     private String password;
 
-    // 使用者電話號碼
-    private String tel;
+    /** 電子郵件（可用於找回密碼、帳號驗證等） */
+    private String email;
 
-    // 使用者註冊日期
-    private Date createDate;
+    /** 聯絡電話（選填） */
+    private String phone;
 
-    // 取得使用者的 ID
-    public String getId() {
+    /** 帳號建立時間（註冊時產生） */
+    private LocalDateTime createdAt;
+
+    /** 最後更新時間（修改密碼、資料時更新） */
+    private LocalDateTime updatedAt;
+
+    // =====================
+    // Getter & Setter 方法
+    // =====================
+
+    public Long getId() {
         return id;
     }
 
-    // 設定使用者的 ID
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    // 取得使用者名稱
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    // 設定使用者名稱
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    // 取得使用者的登入帳號
-    public String getLoginId() {
-        return loginId;
-    }
-
-    // 設定使用者的登入帳號
-    public void setLoginId(String loginId) {
-        this.loginId = loginId;
-    }
-
-    // 取得使用者的密碼
     public String getPassword() {
         return password;
     }
 
-    // 設定使用者的密碼
     public void setPassword(String password) {
         this.password = password;
     }
 
-    // 取得使用者的電話號碼
-    public String getTel() {
-        return tel;
+    public String getEmail() {
+        return email;
     }
 
-    // 設定使用者的電話號碼
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    // 取得使用者的註冊日期
-    public Date getCreateDate() {
-        return createDate;
+    public String getPhone() {
+        return phone;
     }
 
-    // 設定使用者的註冊日期
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-    
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

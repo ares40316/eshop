@@ -1,5 +1,6 @@
 package com.example.action;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class RegisterAction extends BaseAction {
 		} catch (Exception e) {
 			addActionError("註冊失敗，請重試");
 			// 註冊失敗，將錯誤訊息設置到 session
-			// getSession().setAttribute(ConstantName.SESSION_USER_MSG, "註冊失敗，請重試");
+			 getSession().setAttribute(ConstantName.SESSION_USER_MSG, "註冊失敗，請重試");
 			return INPUT;
 		}
 
@@ -79,26 +80,36 @@ public class RegisterAction extends BaseAction {
 	 */
 	private boolean doCheck(User user) {
 		// 先檢查基本欄位是否有填寫
-		if (user == null || user.getLoginId() == null || user.getLoginId().trim().isEmpty()
+		if (user == null || user.getUsername() == null || user.getUsername().trim().isEmpty()
 				|| user.getPassword() == null || user.getPassword().trim().isEmpty()) {
 			return false;
 		}
 
 		// 檢查此帳號是否已經註冊
-		// 假設 userService.findUserByLoginId() 會返回已存在的使用者，若不存在則返回 null
-		User existingUser = userService.findUserByLoginId(user.getLoginId());
+		// 假設 userService.findUserByUsername() 會返回已存在的使用者，若不存在則返回 null
+		User existingUser = userService.findUserByUsername(user.getUsername());
 		if (existingUser != null) {
 			// 帳號已經存在，不允許重複註冊
-			 // 若電話已存在，透過 session 設置提示訊息，讓 register.jsp 顯示 alert
-		    getSession().setAttribute(ConstantName.SESSION_USER_MSG, "帳號已經存在，不允許重複註冊");
+			// 若電話已存在，透過 session 設置提示訊息，讓 register.jsp 顯示 alert
+			getSession().setAttribute(ConstantName.SESSION_USER_MSG, "帳號已經存在，不允許重複註冊");
+			return false;
+		}
+
+		// 檢查此信箱是否已經註冊
+		// 假設 userService.findUserByEmail() 會返回已存在的使用者，若不存在則返回 null
+		User existingEmail = userService.findUserByEmail(user.getEmail());
+		if (existingEmail != null) {
+			// 信箱已經存在，不允許重複註冊
+			// 若信箱已存在，透過 session 設置提示訊息，讓 register.jsp 顯示 alert
+			getSession().setAttribute(ConstantName.SESSION_USER_MSG, "信箱已經存在，不允許重複註冊");
 			return false;
 		}
 
 		// 檢查電話是否已經存在
-		User existingTel = userService.findUserByTel(user.getTel());
+		User existingTel = userService.findUserByPhone(user.getPhone());
 		if (existingTel != null) {
-			 // 若電話已存在，透過 session 設置提示訊息，讓 register.jsp 顯示 alert
-		    getSession().setAttribute(ConstantName.SESSION_USER_MSG, "該電話已有人使用，請重新輸入");
+			// 若電話已存在，透過 session 設置提示訊息，讓 register.jsp 顯示 alert
+			getSession().setAttribute(ConstantName.SESSION_USER_MSG, "該電話已有人使用，請重新輸入");
 			return false;
 		}
 
@@ -112,7 +123,7 @@ public class RegisterAction extends BaseAction {
 	 * @param user 使用者資料
 	 */
 	private void setUserCreateDate(User user) {
-		user.setCreateDate(new Date());
+		user.setCreatedAt(LocalDateTime.now());
 	}
 
 	// Getter and Setter
