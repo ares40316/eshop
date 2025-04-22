@@ -3,11 +3,14 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
 	"http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+
 	<!-- 註解：struts-default.xml 位於 struts2-core.jar 包的根目錄，提供原始的常數、bean、package 及攔截器設定 -->
 	<!-- 註解：定義抽象的 package：<package name="struts-default" abstract="true" strict-method-invocation="true"> -->
 	<!-- 註解：預設的攔截器設定：<default-interceptor-ref name="defaultStack"/> -->
 	<include file="struts-default.xml" />
-
+	
+	<!-- 註解：排除 /public/.* -->
+	<constant name="struts.action.excludePattern" value="/public/.*" />
 	<!-- 註解：設定常數，這些設定對應於 org.apache.struts2.StrutsConstants 類別中的變數 -->
 	<!-- 註解：default.properties 位於 struts2-core.jar 包，裡面配置了全域的預設常數 -->
 	<!-- 註解：Struts 預設的檔案上傳限制為 2MB，這裡修改為 2GB -->

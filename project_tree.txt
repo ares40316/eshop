@@ -101,6 +101,27 @@
 │   │       ├── META-INF
 │   │       │   └── MANIFEST.MF
 │   │       ├── public
+│   │       │   ├── images
+│   │       │   │   ├── UNIQ男T.jpg
+│   │       │   │   ├── 伯朗.jpg
+│   │       │   │   ├── 可口可樂.jpg
+│   │       │   │   ├── 味味.jpeg
+│   │       │   │   ├── 單人床.jpg
+│   │       │   │   ├── 小美.jpeg
+│   │       │   │   ├── 書桌.jpg
+│   │       │   │   ├── 椅子.jpg
+│   │       │   │   ├── 樂事原味.jpg
+│   │       │   │   ├── 樂事海苔.webp
+│   │       │   │   ├── 檯燈.jpg
+│   │       │   │   ├── 滿漢.jpeg
+│   │       │   │   ├── 百事可樂.jpg
+│   │       │   │   ├── 百吉.jpeg
+│   │       │   │   ├── 紅牛.png
+│   │       │   │   ├── 統一.png
+│   │       │   │   ├── 衣櫃.webp
+│   │       │   │   ├── 誠品 女T.jpg
+│   │       │   │   ├── 雙人床.jpg
+│   │       │   │   └── 鞋櫃.jpg
 │   │       │   └── jquery-3.4.1.min.js
 │   │       ├── user
 │   │       │   ├── login.jsp
@@ -221,4 +242,4 @@
     │                       └── pom.xml
     └── test-classes
 
-65 directories, 156 files
+66 directories, 176 files

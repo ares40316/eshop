@@ -2,6 +2,8 @@ package com.example.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.example.pojo.entity.Product;
 
 /**
@@ -73,5 +75,10 @@ public interface ProductDao {
      */
     List<Product> searchPaged(String keyword, List<String> categoryIds, int offset, int limit);
     int countSearchResults(String keyword, List<String> categoryIds);
+ // 在 ProductDao 新增方法定義
+    @Transactional
+    List<Product> findProductsWithDetails(List<Long> productIds, boolean includeImages, boolean includeCategories);
+    void loadImagesAndCategories(List<Product> products);
+	
 
 }

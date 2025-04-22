@@ -177,7 +177,7 @@ body {
 							<input class="form-check-input" type="checkbox"
 								name="categoryIds" id="cat_<s:property value='#cat.id'/>"
 								value="<s:property value='#cat.id'/>"
-								<s:if test="categoryIds.contains(#cat.id)">checked</s:if>
+								<s:if test="categoryIds.contains(#cat.id.toString())">checked</s:if>
 								onchange="this.form.submit();" /> <label
 								class="form-check-label" for="cat_<s:property value='#cat.id'/>">
 								<s:property value="#cat.name" />
@@ -192,17 +192,20 @@ body {
 				<!-- 右侧 商品列表 -->
 				<div class="col-md-9">
 					<div class="row">
-						<s:iterator value="productList" status="pstatus">
+						<s:iterator value="productList" status="prod">
 							<div class="col-lg-4 col-md-6 mb-4">
 								<div class="card product-card">
 									<div class="card-img-container">
-										<s:set var="foundMain" value="false" />
-										<s:iterator value="images" status="istatus">
-											<s:if test="imageType=='MAIN' and !#foundMain">
-												<img src="%{imageUrl}" class="card-img-top" alt="%{name}" />
-												<s:set var="foundMain" value="true" />
-											</s:if>
-										</s:iterator>
+										<!-- 先檢查 prod.images 是否有東西 -->
+										<s:if test="%{images != null && images.size() > 0}">
+											<s:set var="firstImg" value="%{images.get(0).imageUrl}" />
+											<s:url var="imgUrl" includeContext="true"
+												value="/public/images/%{firstImg}" />
+											<img src="${imgUrl}" class="card-img-top" alt="%{name}" />
+										</s:if>
+										<s:else>
+											<i class="fas fa-image fa-3x text-secondary"></i>
+										</s:else>
 									</div>
 									<div class="card-body">
 										<h5 class="card-title">
@@ -283,10 +286,10 @@ body {
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script>
 		$(window).on('load resize', function() {
-			$('.row').each(function() {
+			$('.col-md-9 > .row').each(function() {
 				var maxH = 0;
 				var $cards = $(this).find('.product-card');
-				$cards.height('auto').each(function() {
+				$cards.height('height', 'auto').each(function() {
 					maxH = Math.max(maxH, $(this).outerHeight());
 				});
 				$cards.height(maxH);

@@ -2,6 +2,7 @@ package com.example.action;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.example.dto.ProductPageResult;
 import com.example.pojo.entity.Product;
@@ -48,6 +49,17 @@ public class ProductAction extends ActionSupport implements SessionAware {
                 .searchWithFilterAndPaging(keyword, categoryIds, pageNo, 10);
             productList = result.getProducts();
             totalPages = result.getTotalPages();
+            pageNo      = result.getPageNo(); 
+            
+         // === DEBUG: 印出每個商品的所有 imageUrl ===
+            for (Product p : productList) {
+                List<String> urls = p.getImages()
+                                     .stream()
+                                     .map(img -> img.getImageUrl())
+                                     .collect(Collectors.toList());
+                logger.debug("Product[{}] image URLs = {}", p.getId(), urls);
+            }
+            
             return SUCCESS;
         } catch (Exception e) {
             logger.error("Error fetching products", e);
