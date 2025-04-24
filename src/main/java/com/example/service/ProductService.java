@@ -85,6 +85,9 @@ public interface ProductService {
     ProductPageResult searchWithFilterAndPaging(String keyword, List<String> categoryIds,
             int pageNo, int pageSize);
 
+	
+
+
     
     
 }

@@ -108,6 +108,9 @@ public class ProductDaoImpl implements ProductDao {
 		return getSession().get(Product.class, id);
 	}
 
+	/**
+	 * 根據商品 ID 查詢商品。
+	 */
 	@Override
 	public List<Product> searchPaged(String keyword, List<String> categoryIds, int offset, int limit) {
 		CriteriaBuilder cb = getSession().getCriteriaBuilder();
@@ -140,6 +143,7 @@ public class ProductDaoImpl implements ProductDao {
 				.getResultList();
 	}
 
+	
 	@Override
 	// 添加事務註解
 	public void loadImagesAndCategories(List<Product> products) {

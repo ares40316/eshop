@@ -70,6 +70,9 @@ public interface ProductDao {
      * @return 商品物件，若找不到則回傳 null
      */
     public Product findById(Long id);
+    
+    
+    
     /**
      商品頁面和排序
      */
@@ -79,6 +82,7 @@ public interface ProductDao {
     @Transactional
     List<Product> findProductsWithDetails(List<Long> productIds, boolean includeImages, boolean includeCategories);
     void loadImagesAndCategories(List<Product> products);
+
 	
 
 }

@@ -18,7 +18,7 @@
 	<!-- 掃描 com.example 包下的 Spring Bean -->
 	<context:component-scan
 		base-package="com.example">
-		<!-- 排除標記為 @Controller 的類別，這些類應由 Spring MVC 管理 -->
+		 <!--排除標記為 @Controller 的類別，這些類應由 Spring MVC 管理 -->
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 		<!-- 排除標記為 @RestController 的類別，這些類應由 Spring MVC 管理 -->
@@ -131,6 +131,8 @@
 			</list>
 		</property>
 	</bean>
+
+	<bean id="productAction" class="com.example.action.ProductAction"/>
 
 	<!-- 匯入額外的 Spring 配置 -->
 	<import resource="spring-beans.xml" />

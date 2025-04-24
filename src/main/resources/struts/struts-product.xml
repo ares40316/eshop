@@ -6,8 +6,8 @@
 <struts>
     <!-- 
         商品相關功能的封裝 package：
-        - 命名空間設為 "/product"，頁面路徑會以 /product 開頭
-        - 繼承自 default，具備基本功能
+        命名空間設為 "/product"，頁面路徑會以 /product 開頭
+        繼承自 default，具備基本功能
     -->
     <package name="product" extends="default" namespace="/product">
 
@@ -26,9 +26,9 @@
         <default-interceptor-ref name="productStack" />
         <!-- 
             商品查詢與列表頁面：
-            - Action 名稱為 "search"
-            - 對應的處理類別為 com.example.action.ProductAction
-            - 預設執行 execute() 方法
+             Action 名稱為 "search"
+             對應的處理類別為 com.example.action.ProductAction
+             預設執行 execute() 方法
         -->
         <action name="search" class="com.example.action.ProductAction" method="execute">
             <!-- 查詢成功，顯示商品 -->
@@ -36,25 +36,24 @@
             <result name="error">/user/product.jsp</result>
         </action>
 
-        <!-- 
-            商品詳情頁面顯示：
-            - Action 名稱為 "detail"
-            - 方法 detail() 對應顯示特定商品資料
-        -->
-        <action name="detail" class="com.example.action.ProductAction" method="detail">
-            <!-- 顯示商品詳細資訊頁 -->
-            <result name="success">/WEB-INF/views/product-detail.jsp</result>
-        </action>
+        
 
         <!-- 
             加入購物車功能：
-            - Action 名稱為 "addToCart"
-            - 方法 addToCart() 實作加入購物車邏輯
-            - 執行完後重新導向回商品列表或購物車頁
+             Action 名稱為 "addToCart"
+             方法 addToCart() 實作加入購物車邏輯
+             執行完後重新導向回商品列表或購物車頁
         -->
         <action name="addToCart" class="com.example.action.ProductAction" method="addToCart">
             <result name="success" type="redirect">/cart.jsp</result>
         </action>
+        
+        <!-- AJAX 請求要回傳 fragment -->
+        <action name="detail" class="com.example.action.ProductAction" method="detail">
+    		<result name="success">/WEB-INF/views/product-detail.jsp</result>
+    		<result name="ajax">/WEB-INF/views/product-detail.jsp</result>
+   			<result name="error">/error.jsp</result>
+		</action>
 
     </package>
 </struts>

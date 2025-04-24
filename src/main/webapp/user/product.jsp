@@ -138,6 +138,7 @@ body {
 	}
 }
 </style>
+ <s:url var="detailUrl" namespace="/product" action="detail" includeContext="true"/>
 </head>
 <body>
 	<!-- 頂部導航 + 搜索 -->
@@ -191,44 +192,42 @@ body {
 
 				<!-- 右侧 商品列表 -->
 				<div class="col-md-9">
+				 <div id="product-list-container">
 					<div class="row">
 						<s:iterator value="productList" status="prod">
 							<div class="col-lg-4 col-md-6 mb-4">
-								<div class="card product-card">
-									<div class="card-img-container">
-										<!-- 先檢查 prod.images 是否有東西 -->
-										<s:if test="%{images != null && images.size() > 0}">
-											<s:set var="firstImg" value="%{images.get(0).imageUrl}" />
-											<s:url var="imgUrl" includeContext="true"
-												value="/public/images/%{firstImg}" />
-											<img src="${imgUrl}" class="card-img-top" alt="%{name}" />
-										</s:if>
-										<s:else>
-											<i class="fas fa-image fa-3x text-secondary"></i>
-										</s:else>
+									<div class="card product-card" data-id="<s:property value='id'/>">
+										<div class="card-img-container">
+											<!-- 先檢查 prod.images 是否有東西 -->
+											<s:if test="%{images != null && images.size() > 0}">
+												<s:set var="firstImg" value="%{images.get(0).imageUrl}" />
+												<s:url var="imgUrl" includeContext="true"
+													value="/public/images/%{firstImg}" />
+												<img src="${imgUrl}" class="card-img-top" alt="%{name}" />
+											</s:if>
+											<s:else>
+												<i class="fas fa-image fa-3x text-secondary"></i>
+											</s:else>
+										</div>
+										<div class="card-body">
+											<h5 class="card-title">
+												<s:property value="name" />
+											</h5>
+											<p class="card-text text-truncate">
+												<s:property value="description" />
+											</p>
+											<p class="card-text text-danger">
+												$
+												<s:property value="price" />
+											</p>
+											<a
+												href="<s:url action='addToCart' namespace='/product'><s:param name='productId'><s:property value='id'/></s:param></s:url>"
+												class="btn btn-sm btn-secondary">加入購物車</a>
+										</div>
 									</div>
-									<div class="card-body">
-										<h5 class="card-title">
-											<s:property value="name" />
-										</h5>
-										<p class="card-text text-truncate">
-											<s:property value="description" />
-										</p>
-										<p class="card-text text-danger">
-											$
-											<s:property value="price" />
-										</p>
-										<a
-											href="<s:url action='detail' namespace='/product'><s:param name='id'><s:property value='id'/></s:param></s:url>"
-											class="btn btn-sm btn-primary">詳細</a> <a
-											href="<s:url action='addToCart' namespace='/product'><s:param name='productId'><s:property value='id'/></s:param></s:url>"
-											class="btn btn-sm btn-secondary">加入購物車</a>
-									</div>
-								</div>
 							</div>
 						</s:iterator>
 					</div>
-
 					<!-- 分页 -->
 					<nav aria-label="Page navigation">
 						<ul class="pagination justify-content-center">
@@ -276,25 +275,44 @@ body {
 					</nav>
 				</div>
 			</div>
+			</div>
 		</s:form>
+		<div id="product-detail-container" style="display:none;"></div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script>
+	 var detailUrl = '<s:url action="detail" namespace="/product" includeContext="true"/>';
+	
 		$(window).on('load resize', function() {
 			$('.col-md-9 > .row').each(function() {
 				var maxH = 0;
 				var $cards = $(this).find('.product-card');
-				$cards.height('height', 'auto').each(function() {
+				$cards.css('height', 'auto').each(function() {
 					maxH = Math.max(maxH, $(this).outerHeight());
 				});
 				$cards.height(maxH);
 			});
 		});
+		
+		
+			$('#product-list-container').on('click', '.product-card', function(){
+			    var pid = $(this).data('id');
+			    $.ajax({
+			      url: detailUrl,
+			      data: { id: pid },
+			      success: function(html){
+			        $('#product-list-container').hide();
+			        $('#product-detail-container').html(html).show();
+			      },
+			      error: function(){
+			        alert('載入商品詳情失敗');
+			      }
+			    });
+			  });
+			 
 	</script>
 </body>
 </html>
